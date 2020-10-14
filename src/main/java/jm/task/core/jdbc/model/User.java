@@ -29,7 +29,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", age=" + age +
-                '}' + "\n";
+                '}';
     }
 
     public User(String name, String lastName, Byte age) {
