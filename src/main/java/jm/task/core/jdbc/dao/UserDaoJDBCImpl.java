@@ -18,6 +18,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate("CREATE TABLE IF NOT EXISTS mybasetest.users(id mediumint not null auto_increment, name VARCHAR(50), lastname VARCHAR(50), age tinyint, PRIMARY KEY (id))");
+            System.out.println("Таблица создана");
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -35,6 +37,8 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
         try {
             Statement statement = connection.createStatement();
             statement.executeUpdate("Drop table if exists mybasetest.users");
+            System.out.println("Таблица удалена");
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -55,6 +59,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             preparedStatement.setString(2, lastName);
             preparedStatement.setByte(3, age);
             preparedStatement.executeUpdate();
+            System.out.println("User с именем – " + name + " добавлен в базу данных");;
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,6 +70,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
             Statement statement = connection.createStatement();
             String sql = "DELETE FROM mybasetest.users where id";
             statement.executeUpdate(sql);
+            System.out.println("User удален");
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
