@@ -7,8 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDaoJDBCImpl extends Util implements UserDao {
-    private final Connection connection = getConnection();
+public class UserDaoJDBCImpl implements UserDao {
+    private final Connection connection = Util.getConnection();
 
     public UserDaoJDBCImpl() {
 
@@ -16,7 +16,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     public void createUsersTable() {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS mybasetest.users" +
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS test.users" +
                     "(id mediumint not null auto_increment," +
                     " name VARCHAR(50), " +
                     "lastname VARCHAR(50), " +
@@ -54,7 +54,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-        String sql = "INSERT INTO mybasetest.users(name, lastname, age) VALUES(?,?,?)";
+        String sql = "INSERT INTO test.users(name, lastname, age) VALUES(?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
@@ -68,7 +68,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     public void removeUserById(long id) {
         try (Statement statement = connection.createStatement()) {
-            String sql = "DELETE FROM mybasetest.users where id";
+            String sql = "DELETE FROM test.users where id";
             statement.executeUpdate(sql);
             System.out.println("User удален");
         } catch (SQLException e) {
@@ -86,7 +86,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
 
     public List<User> getAllUsers() {
         List<User> allUser = new ArrayList<>();
-        String sql = "SELECT id, name, lastName, age from mybasetest.users";
+        String sql = "SELECT id, name, lastName, age from test.users";
 
         try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(sql);
@@ -97,7 +97,6 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
                 user.setName(resultSet.getString("name"));
                 user.setLastName(resultSet.getString("lastName"));
                 user.setAge(resultSet.getByte("age"));
-                System.out.println(user.toString());
                 allUser.add(user);
             }
 
@@ -116,7 +115,7 @@ public class UserDaoJDBCImpl extends Util implements UserDao {
     }
 
     public void cleanUsersTable() {
-        String sql = "DELETE FROM mybasetest.users";
+        String sql = "DELETE FROM test.users";
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
             System.out.println("Таблица очищена");

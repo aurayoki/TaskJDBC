@@ -6,12 +6,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Util {
-    private final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private final String HOST = "jdbc:mysql://localhost:3306/mybasetest?serverTimezone=Europe/Moscow";
-    private final String LOGIN = "root";
-    private final String PASSWORD = "root1234";
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String HOST = "jdbc:mysql://localhost:3306/test?serverTimezone=Europe/Moscow";
+    private static final String LOGIN = "root1";
+    private static final String PASSWORD = "1234";
 
-    public Connection getConnection() {
+    public static Connection getConnection() {
         Connection connection = null;
         try {
             Class.forName(DRIVER);
